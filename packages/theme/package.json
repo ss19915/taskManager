@@ -1,0 +1,14 @@
+{
+  "name": "@react-web-app/theme",
+  "version": "1.0.0",
+  "main": "cjs",
+  "author": "Suraj Sharma",
+  "license": "MIT",
+  "scripts": {
+    "watch": "rm -rfv ./cjs && babel --watch --verbose --relative ./src/ -d ../cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js'",
+    "watchWin": "babel --watch --verbose  ./src/ -d ../cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js'"
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.4.0"
+  }
+}

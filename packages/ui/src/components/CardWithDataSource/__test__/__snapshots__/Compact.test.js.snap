@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Compact Should render correctly with childs 1`] = `
+<WithStyles(ForwardRef(Paper))
+  basic={true}
+>
+  <WithStyles(ForwardRef(Paper))>
+    <A />
+  </WithStyles(ForwardRef(Paper))>
+</WithStyles(ForwardRef(Paper))>
+`;
+
+exports[`Component: Compact Should render correctly with no child 1`] = `
+<WithStyles(ForwardRef(Paper))
+  basic={true}
+>
+  <WithStyles(ForwardRef(Paper)) />
+</WithStyles(ForwardRef(Paper))>
+`;

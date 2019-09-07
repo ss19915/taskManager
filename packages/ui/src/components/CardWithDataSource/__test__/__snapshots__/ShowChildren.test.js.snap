@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ShowChildren Should render correctly with more than one child 1`] = `
+Array [
+  <A
+    key="0"
+  />,
+  <B
+    key="1"
+  />,
+]
+`;
+
+exports[`Component: ShowChildren Should render correctly with no child 1`] = `""`;
+
+exports[`Component: ShowChildren Should render correctly with one child 1`] = `<A />`;

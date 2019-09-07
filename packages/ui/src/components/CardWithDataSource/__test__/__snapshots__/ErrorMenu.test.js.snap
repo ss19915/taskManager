@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ErrorMenu Should render correctly with no child 1`] = `
+<Fragment>
+  <WithStyles(ForwardRef(Button))
+    disabled={false}
+  >
+    Retry
+  </WithStyles(ForwardRef(Button))>
+  <WithStyles(ForwardRef(Button))
+    onClick={[Function]}
+  >
+    Show Error
+  </WithStyles(ForwardRef(Button))>
+</Fragment>
+`;

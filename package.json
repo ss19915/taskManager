@@ -1,0 +1,21 @@
+{
+    "name": "react-web-app",
+    "version": "1.0.0",
+    "description": "React web app with ES6, emotion, flow  out of the box.",
+    "author": {
+        "name": "suraj sharma",
+        "email": "surajsharma571994@gmail.com"
+    },
+    "license": "MIT",
+    "private": true,
+    "workspaces": [ "packages/*" ],
+    "scripts": {
+        "watch": "rm -rfv ./packages/**/cjs && babel --watch --verbose --relative ./packages/**/src/ -d ../cjs --ignore './packages/**/src/**/*.test.js' --ignore './packages/**/src/*.test.js'",
+        "watchWin": "babel --watch --verbose --relative ./packages/**/src/ -d ../cjs --ignore './packages/**/src/**/*.test.js' --ignore './packages/**/src/*.test.js'"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.5.5",
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5"
+    }
+}

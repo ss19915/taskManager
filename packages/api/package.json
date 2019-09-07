@@ -1,0 +1,31 @@
+{
+  "name": "@react-web-app/api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cjs",
+  "scripts": {
+    "start": "nodemon --exec babel-node -r loadEnv src/api.js --root-mode upward",
+    "build": "webpack --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "rm -rfv ./cjs && babel --watch --verbose --relative ./src/ -d ../cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js'",
+    "watchWin": "babel --watch --verbose  ./src/ -d ../cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js'"
+  },
+  "author": "Suraj Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "dotenv": "^8.1.0",
+    "dotenv-webpack": "^1.7.0",
+    "nodemon": "^1.19.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
+  }
+}
