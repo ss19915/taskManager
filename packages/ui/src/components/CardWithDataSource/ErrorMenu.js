@@ -1,6 +1,6 @@
 import React from 'react';
 import { Status } from './constants';
-import { Paper, Button } from '@react-web-app/theme';
+import { Paper, Button } from '@task-manager/theme';
 import { ErrorMenuLabels } from './constants';
 import T from 'prop-types';
 

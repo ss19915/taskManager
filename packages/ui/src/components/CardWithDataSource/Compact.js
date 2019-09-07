@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from '@react-web-app/theme';
+import { Paper } from '@task-manager/theme';
 import T from 'prop-types';
 
 const Compact = (props) => {

@@ -1,7 +1,7 @@
 {
-    "name": "react-web-app",
+    "name": "task-manager",
     "version": "1.0.0",
-    "description": "React web app with ES6, emotion, flow  out of the box.",
+    "description": "A react app for managing task",
     "author": {
         "name": "suraj sharma",
         "email": "surajsharma571994@gmail.com"

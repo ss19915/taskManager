@@ -1,7 +1,7 @@
 import express from 'express';
 import routes from './routes';
 import middleware from './middleware';
-import { connectDb } from '@react-web-app/db';
+import { connectDb } from '@task-manager/db';
 
 const appPort = process.env.API_PORT || 8081;
 

@@ -1,4 +1,4 @@
-import { aboutDbPackage } from '@react-web-app/db';
+import { aboutDbPackage } from '@task-manager/db';
 import express from 'express';
 
 const router = express.Router();

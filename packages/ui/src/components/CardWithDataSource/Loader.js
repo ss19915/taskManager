@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress } from '@react-web-app/theme';
+import { CircularProgress } from '@task-manager/theme';
 import Compact from './Compact';
 import T from 'prop-types';
 

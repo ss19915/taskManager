@@ -1,7 +1,7 @@
 import React from 'react';
 import ErrorMenu from '../ErrorMenu';
 import { ErrorMenuLabels } from '../constants';
-import { Button } from '@react-web-app/theme';
+import { Button } from '@task-manager/theme';
 
 describe('Component: ErrorMenu', () => {
     it('Should render correctly with no child', () => {
