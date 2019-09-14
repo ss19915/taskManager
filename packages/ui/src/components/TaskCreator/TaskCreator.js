@@ -5,6 +5,7 @@ import _ from 'lodash';
 class TaskCreator extends React.PureComponent {
     state = {
         imageFiles: [],
+        isCreateDisabled: true,
     };
 
     createTask = () => { };
@@ -37,10 +38,23 @@ class TaskCreator extends React.PureComponent {
         }));
     };
 
-    onNameChange = (taskName) => this.setState({ taskName });
+    onNameChange = (taskName) => {
+        this.setState( (prevState) => {
+            const newState = { taskName };
+
+            if(prevState.isCreateDisabled && !_.isEmpty(taskName)){
+                newState.isCreateDisabled = false;
+            }
+            else if( !prevState.isCreateDisabled && _.isEmpty(taskName)){
+                newState.isCreateDisabled = true;
+            }
+
+            return(newState);
+        })
+    };
 
     render() {
-        const { imageFiles } = this.state;
+        const { imageFiles, isCreateDisabled } = this.state;
 
         return (
             <TaskCreatorForm
@@ -50,6 +64,7 @@ class TaskCreator extends React.PureComponent {
                 createTask={this.createTask}
                 imageFiles={imageFiles}
                 removeImage={this.removeImage}
+                isCreateDisabled={isCreateDisabled}
             />
         );
     }

@@ -4,6 +4,7 @@ exports[`Component: TaskCreator Should match snapshot 1`] = `
 <TaskCreatorForm
   createTask={[Function]}
   imageFiles={Array []}
+  isCreateDisabled={true}
   onDescriptionChange={[Function]}
   onImageAdd={[Function]}
   onNameChange={[Function]}

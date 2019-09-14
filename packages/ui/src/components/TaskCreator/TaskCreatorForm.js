@@ -6,12 +6,12 @@ import AddImageButton from './AddImageButton';
 import ImageViewer from './ImageViewer';
 
 const TaskCreatorForm = (props) => {
-    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage } = props;
+    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage, isCreateDisabled } = props;
 
     const MultipleImageViewer = () => (
         <Grid spacing={1} container>
             {imageFiles.map((imageFile, index) => (
-                <Grid item xl={1} lg={2} md={2} sm={3} xs={6}  key={index}>
+                <Grid item xl={1} lg={2} md={2} sm={3} xs={6} key={index}>
                     <ImageViewer
                         imageFile={imageFile}
                         name={index}
@@ -31,16 +31,20 @@ const TaskCreatorForm = (props) => {
                         color='primary'
                         variant='extended'
                         onClick={createTask}
+                        disabled={isCreateDisabled}
                     >
                         Create Task
                     </Fab>
                 }
             />
             <Card.Content>
-                <Typography>Name</Typography>
-                <TextField fullWidth onChange={onNameChange} />
+                <Typography>Name*</Typography>
+                <TextField
+                    fullWidth
+                    onChange={({ target: { value } }) => onNameChange(value)}
+                />
                 <Typography>Description</Typography>
-                <TextField fullWidth onChange={onDescriptionChange} multiline />
+                <TextField fullWidth onChange={({ target: { value } }) => onDescriptionChange(value)} multiline />
                 <MultipleImageViewer />
             </Card.Content>
             <Card.Actions>
@@ -53,6 +57,7 @@ const TaskCreatorForm = (props) => {
 TaskCreatorForm.propTypes = {
     createTask: T.func.isRequired,
     imageFiles: T.arrayOf(T.object),
+    isCreateDisabled: T.bool.isRequired,
     onDescriptionChange: T.func.isRequired,
     onImageAdd: T.func.isRequired,
     onNameChange: T.func.isRequired,
