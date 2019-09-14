@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: AddImageButton Should match snapshot 1`] = `
+<Fragment>
+  <input
+    hidden={true}
+    multiple={true}
+    onChange={[Function]}
+    type="file"
+  />
+  <WithStyles(ForwardRef(Fab))
+    onClick={[Function]}
+  >
+    <AddAPhotoIcon />
+  </WithStyles(ForwardRef(Fab))>
+</Fragment>
+`;

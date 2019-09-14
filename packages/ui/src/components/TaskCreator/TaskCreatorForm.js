@@ -1,0 +1,62 @@
+import React from 'react';
+import { Card, TextField, Fab, Typography, Grid } from '@task-manager/theme';
+import T from 'prop-types';
+
+import AddImageButton from './AddImageButton';
+import ImageViewer from './ImageViewer';
+
+const TaskCreatorForm = (props) => {
+    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage } = props;
+
+    const MultipleImageViewer = () => (
+        <Grid spacing={1} container>
+            {imageFiles.map((imageFile, index) => (
+                <Grid item xl={1} lg={2} md={2} sm={3} xs={6}  key={index}>
+                    <ImageViewer
+                        imageFile={imageFile}
+                        name={index}
+                        removeImage={removeImage}
+                    />
+                </Grid>
+            ))}
+        </Grid>
+    );
+
+    return (
+        <Card>
+            <Card.Header
+                title='Task Creater'
+                action={
+                    <Fab
+                        color='primary'
+                        variant='extended'
+                        onClick={createTask}
+                    >
+                        Create Task
+                    </Fab>
+                }
+            />
+            <Card.Content>
+                <Typography>Name</Typography>
+                <TextField fullWidth onChange={onNameChange} />
+                <Typography>Description</Typography>
+                <TextField fullWidth onChange={onDescriptionChange} multiline />
+                <MultipleImageViewer />
+            </Card.Content>
+            <Card.Actions>
+                <AddImageButton onChange={onImageAdd} />
+            </Card.Actions>
+        </Card>
+    );
+};
+
+TaskCreatorForm.propTypes = {
+    createTask: T.func.isRequired,
+    imageFiles: T.arrayOf(T.object),
+    onDescriptionChange: T.func.isRequired,
+    onImageAdd: T.func.isRequired,
+    onNameChange: T.func.isRequired,
+    removeImage: T.func.isRequired,
+};
+
+export default TaskCreatorForm

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TaskCreator Should match snapshot 1`] = `
+<TaskCreatorForm
+  createTask={[Function]}
+  imageFiles={Array []}
+  onDescriptionChange={[Function]}
+  onImageAdd={[Function]}
+  onNameChange={[Function]}
+  removeImage={[Function]}
+/>
+`;

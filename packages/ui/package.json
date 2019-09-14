@@ -33,12 +33,14 @@
     "flow-bin": "^0.100.0",
     "jest": "^24.8.0",
     "jest-emotion": "^10.0.11",
+    "prop-types": "^15.7.2",
     "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.1"
   },
   "dependencies": {
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.9.0",
