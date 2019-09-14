@@ -1,8 +1,8 @@
 import express from 'express';
-import about from './about';
+import task from './task';
 
 const router = express.Router();
 
-router.use('/', about);
+router.use('/task', task);
 
 export default router;
