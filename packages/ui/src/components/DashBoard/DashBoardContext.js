@@ -3,7 +3,7 @@ import CardWithDataSource from '../CardWithDataSource';
 import DashBoard from './DashBoard';
 import { getAllTasks } from '@task-manager/api';
 import { connect } from 'react-redux';
-import { saveAllTask } from '../../actions';
+import actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 const DashBoardContext = (props) => {
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    saveAllTask: (allTasks) => dispatch(saveAllTask(allTasks)),
+    saveAllTask: (allTasks) => dispatch(actions.saveAllTask(allTasks)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DashBoardContext));

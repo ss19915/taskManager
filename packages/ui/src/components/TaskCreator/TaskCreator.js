@@ -2,9 +2,11 @@ import React from 'react';
 import TaskCreatorForm from './TaskCreatorForm';
 import _ from 'lodash';
 import { createTask as createTaskEndpoint } from '@task-manager/api';
-import { API_STATUS } from '../../constants';
+import constants from '../../constants';
 import T from 'prop-types';
 import TaskLoader from './TaskLoader';
+
+const { API_STATUS } = constants;
 
 class TaskCreator extends React.PureComponent {
     static propTypes = {

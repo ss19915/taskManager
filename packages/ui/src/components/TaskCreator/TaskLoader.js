@@ -1,9 +1,10 @@
 import React from 'react';
 import { Modal, Card, Typography, CircularProgress, Button, Grid } from '@task-manager/theme';
-import { API_STATUS } from '../../constants';
+import constants from '../../constants';
 
 const TaskLoader = (props) => {
     const { loading, error, createNewTask, retry, redirectHome, cancelCreateTask } = props;
+    const { API_STATUS } = constants;
 
     const Loader = () => (
         <Card.Content>

@@ -1,12 +1,20 @@
 import React from 'react';
 import { Card, TextField, Fab, Typography, Grid, ArrowBackIcon } from '@task-manager/theme';
 import T from 'prop-types';
-
 import AddImageButton from './AddImageButton';
 import ImageViewer from './ImageViewer';
 
 const TaskCreatorForm = (props) => {
-    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage, isCreateDisabled, goBack } = props;
+    const {
+        createTask,
+        onImageAdd,
+        onNameChange,
+        onDescriptionChange,
+        imageFiles,
+        removeImage,
+        isCreateDisabled,
+        goBack
+    } = props;
 
     const MultipleImageViewer = () => (
         <Grid spacing={1} container>

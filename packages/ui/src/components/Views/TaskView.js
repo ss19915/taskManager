@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import { ROUTES } from '../../constants';
+import constants from '../../constants';
 import TaskCreator from '../TaskCreator';
+
+const { ROUTES } = constants;
 
 const TaskView = () => (
     <React.Fragment>

@@ -1,5 +1,3 @@
-import { saveAllTask } from './actions';
+import * as actions from './actions';
 
-export {
-    saveAllTask,
-};
+export default actions;
