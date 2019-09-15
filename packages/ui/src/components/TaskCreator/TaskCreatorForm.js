@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, TextField, Fab, Typography, Grid } from '@task-manager/theme';
+import { Card, TextField, Fab, Typography, Grid, ArrowBackIcon } from '@task-manager/theme';
 import T from 'prop-types';
 
 import AddImageButton from './AddImageButton';
 import ImageViewer from './ImageViewer';
 
 const TaskCreatorForm = (props) => {
-    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage, isCreateDisabled } = props;
+    const { createTask, onImageAdd, onNameChange, onDescriptionChange, imageFiles, removeImage, isCreateDisabled, goBack } = props;
 
     const MultipleImageViewer = () => (
         <Grid spacing={1} container>
@@ -25,7 +25,13 @@ const TaskCreatorForm = (props) => {
     return (
         <Card>
             <Card.Header
-                title='Task Creater'
+                title='Task Creator'
+                avatar={
+                    <Fab onClick={goBack}><ArrowBackIcon/></Fab>
+                }
+                titleTypographyProps={{
+                    variant: 'h5'
+                }}
                 action={
                     <Fab
                         color='primary'

@@ -1,5 +1,8 @@
-import { getApiDetails } from './repository';
+import {  createTask, deleteTaskById, getAllTasks, updateTaskById } from './repository';
 
 export {
-    getApiDetails,
+    createTask,
+    deleteTaskById,
+    getAllTasks,
+    updateTaskById,
 };

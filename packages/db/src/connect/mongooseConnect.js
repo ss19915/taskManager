@@ -12,8 +12,13 @@ const mongooseConnect = (dbUri) => {
         console.log('Mongoose default connection is open');
     });
 
-    mongoose.connection.on('error', (err) => {
-        console.log('Mongoose default connection has occured '+err+' error');
+    mongoose.connection.on('error', () => {
+        mongoose.connect(dbUri, {
+            useNewUrlParser: true,
+            useFindAndModify: false,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+        });    
     });
 
     mongoose.connection.on('disconnected', () => {
