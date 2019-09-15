@@ -1,15 +1,12 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import Home from './components';
+import { BrowserRouter } from 'react-router-dom';
 
-class App extends React.Component {
-    render() {
-
-        return (
-            <Home/>
-        );
-    }
-}
-
+const App = () => (
+    <BrowserRouter>
+        <Home />
+    </BrowserRouter>
+);
 
 export default hot(App);

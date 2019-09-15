@@ -15,10 +15,10 @@ const Compact = (props) => {
 
     else if (label) {
         return (
-            <Paper basic>
+            <Paper>
                 <Paper>
                     {label}
-                    <Paper basic>
+                    <Paper>
                         {children}
                     </Paper>
                 </Paper>
@@ -27,7 +27,7 @@ const Compact = (props) => {
     }
 
     return (
-        <Paper basic>
+        <Paper>
             <Paper>
                 {children}
             </Paper>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Paper } from '@task-manager/theme';
+import DefaultView from '../Views'
 
 const Home = () => {
 
     return (
-        <Paper>Home</Paper>
+        <DefaultView/>
     );
 }
 

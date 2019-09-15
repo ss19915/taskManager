@@ -4,6 +4,7 @@ import { API_STATUS } from '../../constants';
 
 const TaskLoader = (props) => {
     const { loading, error, createNewTask, retry, redirectHome, cancelCreateTask } = props;
+
     const Loader = () => (
         <Card.Content>
             <Typography display='inline'>Saving</Typography>
