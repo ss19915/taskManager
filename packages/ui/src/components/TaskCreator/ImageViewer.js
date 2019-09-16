@@ -1,20 +1,9 @@
 import React from 'react';
 import { Card, IconButton, CloseIcon } from '@task-manager/theme';
 import T from 'prop-types';
+import utils from '../../utils'
 
 const getImageFromPath = (path) => URL.createObjectURL(path);
-
-const LimitCharacter = (string, maxCharacters) => {
-    let truncatedString = string;
-    const tailLength = 3;
-    const tail = ' . . .';
-    
-    if(string.length > maxCharacters){
-        truncatedString = `${string.slice(0, maxCharacters - tailLength)}${tail}`;
-    }
-
-    return truncatedString;
-}; 
 
 const ImageViewer = (props) => {
     const { imageFile, removeImage, name } = props;
@@ -29,7 +18,7 @@ const ImageViewer = (props) => {
                             <CloseIcon />
                         </IconButton>
                     }
-                    title={LimitCharacter(imageFile.name, maxTitleLenght)}
+                    title={utils.limitCharacter(imageFile.name, maxTitleLenght)}
                 />
             <Card.ActionArea>
                 <Card.Media>

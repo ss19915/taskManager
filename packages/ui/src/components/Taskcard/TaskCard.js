@@ -1,19 +1,25 @@
 import React from 'react';
-import { Card, IconButton, MoreVertIcon } from '@task-manager/theme';
-import TaskCardHeaderMenu from './TaskCardHeaderMenu';
+import { Card, IconButton, MoreVertIcon, Checkbox, Typography } from '@task-manager/theme';
+import utils from '../../utils'
 
 const TaskCard = (props) => {
 
     const {
         name,
         description,
-        showCardHeaderMenu
+        showCardHeaderMenu,
+        completed,
+        markAsComplete,
+        isCompleteCheckBoxDisabled,
     } = props;
+
+    const headerMaxLength = 30;
+    const contentMaxLength = 300;
 
     return (
         <Card>
             <Card.Header
-                title={name}
+                title={utils.limitCharacter(name, headerMaxLength)}
                 action={
                     <IconButton onClick={showCardHeaderMenu}>
                         <MoreVertIcon />
@@ -22,9 +28,19 @@ const TaskCard = (props) => {
             />
             <Card.ActionArea>
                 <Card.Content>
-                    {description}
+                    {utils.limitCharacter(description, contentMaxLength)}
                 </Card.Content>
             </Card.ActionArea>
+            <Card.Actions>
+                <Checkbox
+                    checked={completed}
+                    onClick={markAsComplete}
+                    disabled={isCompleteCheckBoxDisabled}
+                />
+                <Typography>
+                    {completed ? 'Completed' : 'Incomplete'}
+                </Typography>
+            </Card.Actions>
         </Card>
     );
 }

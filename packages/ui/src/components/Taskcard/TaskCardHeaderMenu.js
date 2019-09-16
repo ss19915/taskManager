@@ -8,6 +8,7 @@ const TaskCardHeaderMenu = (props) => {
         viewTask,
         editTask,
         deleteTask,
+        isDeleteDisabled
     } = props;
 
     return (
@@ -20,7 +21,7 @@ const TaskCardHeaderMenu = (props) => {
         >
             <Menu.Item onClick={viewTask}>View</Menu.Item>
             <Menu.Item onClick={editTask}>Edit</Menu.Item>
-            <Menu.Item onClick={deleteTask}>Delete</Menu.Item>
+            <Menu.Item disabled={isDeleteDisabled} onClick={deleteTask}>Delete</Menu.Item>
         </Menu>
     );
 };
