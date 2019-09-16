@@ -1,6 +1,6 @@
-import { Card } from './Components';
+import { Card, Menu } from './Components';
 import { Button, CircularProgress, Fab, Grid, IconButton, Modal, Paper, TextField, Typography } from '@material-ui/core';
-import { AddAPhoto as AddAPhotoIcon, Add as AddIcon, Close as CloseIcon, ArrowBack as ArrowBackIcon } from '@material-ui/icons';
+import { AddAPhoto as AddAPhotoIcon, Add as AddIcon, Close as CloseIcon, ArrowBack as ArrowBackIcon, MoreVert as MoreVertIcon } from '@material-ui/icons';
 
 export {
     //material ui core
@@ -19,7 +19,9 @@ export {
     AddAPhotoIcon,
     CloseIcon,
     ArrowBackIcon,
+    MoreVertIcon,
 
     //custom components
     Card,
+    Menu,
 };

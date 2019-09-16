@@ -24,11 +24,12 @@ class CardWithDataSource extends React.PureComponent {
 
         const {
             payload,
+            skip,
         } = props;
 
         this.state = {
             payload,
-            status: Status.LOADED,
+            status: skip ? Status.LOADED : Status.LOADING,
             apiResponse: {},
             error: '',
         };
