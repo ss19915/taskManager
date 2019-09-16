@@ -1,6 +1,6 @@
 import { actionConstants } from '../constants';
 
-const { SAVE_ALL_TASKS, SAVE_TASK, DELETE_TASK, UPDATE_TASK} = actionConstants;
+const { SAVE_ALL_TASKS, SAVE_TASK, DELETE_TASK, UPDATE_TASK, ACTIVE_TASK } = actionConstants;
 
 export const saveAllTask = (allTasks) => ({
     type: SAVE_ALL_TASKS,
@@ -21,4 +21,9 @@ export const updateTask = (taskIndex, task) => ({
     type: UPDATE_TASK,
     taskIndex,
     task,
+});
+
+export const setActiveTask = (activeTask) => ({
+    type: ACTIVE_TASK,
+    activeTask,
 });

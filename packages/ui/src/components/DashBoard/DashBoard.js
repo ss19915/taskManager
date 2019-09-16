@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Grid } from '@task-manager/theme';
-import TaskCard from '../Taskcard';
+import TaskCard from '../TaskCard';
 
 const DashBoard = (props) => {
     const {

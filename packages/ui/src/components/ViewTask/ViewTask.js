@@ -1,9 +1,7 @@
 import React from 'react';
-import { Card, IconButton, MoreVertIcon, Checkbox, Typography } from '@task-manager/theme';
-import utils from '../../utils'
+import { Card, IconButton, MoreVertIcon, Checkbox, Typography, Fab, ArrowBackIcon } from '@task-manager/theme';
 
-const TaskCard = (props) => {
-
+const ViewTask = (props) => {
     const {
         name,
         description,
@@ -11,27 +9,29 @@ const TaskCard = (props) => {
         completed = false,
         markAsComplete,
         isCompleteCheckBoxDisabled,
-        viewTask,
+        goBack,
     } = props;
 
-    const headerMaxLength = 30;
-    const contentMaxLength = 300;
 
     return (
         <Card>
             <Card.Header
-                title={utils.limitCharacter(name, headerMaxLength)}
+                title={name}
+                titleTypographyProps={{
+                    variant: 'h5'
+                }}
+                avatar={
+                    <Fab onClick={goBack}><ArrowBackIcon/></Fab>
+                }
                 action={
                     <IconButton onClick={showCardHeaderMenu}>
                         <MoreVertIcon />
                     </IconButton>
                 }
             />
-            <Card.ActionArea onClick={viewTask}>
                 <Card.Content>
-                    {utils.limitCharacter(description, contentMaxLength)}
+                    {description}
                 </Card.Content>
-            </Card.ActionArea>
             <Card.Actions>
                 <Checkbox
                     checked={completed}
@@ -46,4 +46,4 @@ const TaskCard = (props) => {
     );
 }
 
-export default TaskCard;
+export default ViewTask;

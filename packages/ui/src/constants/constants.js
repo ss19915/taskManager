@@ -7,5 +7,7 @@ export const API_STATUS = {
 
 export const ROUTES = {
     DASHBOARD: '/',
-    CREATE_TASK: '/task/create'
+    CREATE_TASK: '/task/create',
+    VIEW_TASK: '/task/view',
+    EDIT_TASK: '/task/edit',
 };

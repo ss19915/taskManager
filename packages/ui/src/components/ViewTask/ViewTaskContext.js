@@ -1,13 +1,14 @@
 import React from 'react';
-import TaskCard from './TaskCard';
-import TaskCardHeaderMenu from './TaskCardHeaderMenu';
-import { deleteTaskById, updateTaskById } from '@task-manager/api';
 import { connect } from 'react-redux';
-import actions from '../../actions';
-import constants from '../../constants';
 import { withRouter } from 'react-router-dom';
+import ViewTask from './ViewTask';
+import constants from '../../constants';
+import ViewTaskHeaderMenu from './ViewTaskHeaderMenu';
+import actions from '../../actions';
+import { deleteTaskById, updateTaskById } from '@task-manager/api';
 
-class TaskCardContext extends React.Component {
+class ViewTaskContext extends React.PureComponent {
+
     state = {
         anchorEl: null,
     };
@@ -24,25 +25,19 @@ class TaskCardContext extends React.Component {
         this.setState({ isDeleteDisabled: true });
         deleteTaskById(id).then(() => {
             taskDeleted(taskIndex);
+            this.redirectHome();
         }).catch(() => {
             this.setState({ isDeleteDisabled: false });
         });
     };
 
-    viewTask = () => {
-        const { setActiveTask, history, taskIndex } = this.props;
-
-        setActiveTask(taskIndex);
-        history.push(constants.ROUTES.VIEW_TASK);
-    };
-
     editTask = () => {
         const { setActiveTask, history, taskIndex } = this.props;
-        
+
         setActiveTask(taskIndex);
         history.push(constants.ROUTES.EDIT_TASK);
     };
-    
+
     markAsComplete = () => {
         const { task, updateTask, taskIndex } = this.props;
         const { _id: id, completed } = task;
@@ -57,32 +52,45 @@ class TaskCardContext extends React.Component {
         });
     };
 
+    redirectHome = () => {
+        const { history } = this.props;
+        
+        history.push(constants.ROUTES.DASHBOARD);
+    } 
 
     render() {
-        const { anchorEl, isCompleteCheckBoxDisabled, isDeleteDisabled } = this.state;
         const { task } = this.props;
+        const { anchorEl, isCompleteCheckBoxDisabled, isDeleteDisabled } = this.state;
+
+        if (task === null) {
+            this.redirectHome();
+        }
 
         return (
             <React.Fragment>
-                <TaskCardHeaderMenu
+                <ViewTaskHeaderMenu
                     anchorEl={anchorEl}
                     onClose={this.onClose}
-                    viewTask={this.viewTask}
                     editTask={this.editTask}
                     deleteTask={this.deleteTask}
                     isDeleteDisabled={isDeleteDisabled}
                 />
-                <TaskCard
+                <ViewTask
+                    {...task}
                     showCardHeaderMenu={this.showCardHeaderMenu}
                     markAsComplete={this.markAsComplete}
                     {...task}
                     isCompleteCheckBoxDisabled={isCompleteCheckBoxDisabled}
-                    viewTask={this.viewTask}
+                    goBack={this.redirectHome}
                 />
             </React.Fragment>
-        );
+        )
     }
 }
+const mapStateToProps = (state) => ({
+    task: state.allTasks === null ? null : state.allTasks[state.activeTask],
+    taskIndex: state.activeTask,
+});
 
 const mapDispatchToProps = (dispatch) => ({
     taskDeleted: (taskIndex) => dispatch(actions.deleteTask(taskIndex)),
@@ -90,4 +98,4 @@ const mapDispatchToProps = (dispatch) => ({
     setActiveTask: (activeTask) => dispatch(actions.setActiveTask(activeTask)),
 });
 
-export default connect(null, mapDispatchToProps)(withRouter(TaskCardContext));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewTaskContext));
