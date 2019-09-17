@@ -3,8 +3,9 @@ import { Card, TextField, Fab, Typography, Grid, ArrowBackIcon } from '@task-man
 import T from 'prop-types';
 import AddImageButton from './AddImageButton';
 import ImageViewer from './ImageViewer';
+import constants from '../../constants';
 
-const TaskCreatorForm = (props) => {
+const TaskCreatorEditorForm = (props) => {
     const {
         createTask,
         onImageAdd,
@@ -13,8 +14,13 @@ const TaskCreatorForm = (props) => {
         imageFiles,
         removeImage,
         isCreateDisabled,
-        goBack
+        goBack,
+        mode,
+        name,
+        description,
     } = props;
+
+    const EDIT_MODE = constants.VIEW_MODE.EDIT;
 
     const MultipleImageViewer = () => (
         <Grid spacing={1} container>
@@ -33,9 +39,9 @@ const TaskCreatorForm = (props) => {
     return (
         <Card>
             <Card.Header
-                title='Task Creator'
+                title={mode === EDIT_MODE ? 'Task Editor' : 'Task Creator'}
                 avatar={
-                    <Fab onClick={goBack}><ArrowBackIcon/></Fab>
+                    <Fab onClick={goBack}><ArrowBackIcon /></Fab>
                 }
                 titleTypographyProps={{
                     variant: 'h5'
@@ -47,18 +53,24 @@ const TaskCreatorForm = (props) => {
                         onClick={createTask}
                         disabled={isCreateDisabled}
                     >
-                        Create Task
+                        {mode === EDIT_MODE ? 'Update Task' : 'Create Task'}
                     </Fab>
                 }
             />
             <Card.Content>
                 <Typography>Name*</Typography>
                 <TextField
+                    defaultValue={name}
                     fullWidth
                     onChange={({ target: { value } }) => onNameChange(value)}
                 />
                 <Typography>Description</Typography>
-                <TextField fullWidth onChange={({ target: { value } }) => onDescriptionChange(value)} multiline />
+                <TextField
+                    fullWidth
+                    onChange={({ target: { value } }) => onDescriptionChange(value)}
+                    multiline
+                    defaultValue={description}
+                />
                 <MultipleImageViewer />
             </Card.Content>
             <Card.Actions>
@@ -68,7 +80,7 @@ const TaskCreatorForm = (props) => {
     );
 };
 
-TaskCreatorForm.propTypes = {
+TaskCreatorEditorForm.propTypes = {
     createTask: T.func.isRequired,
     imageFiles: T.arrayOf(T.object),
     isCreateDisabled: T.bool.isRequired,
@@ -78,4 +90,4 @@ TaskCreatorForm.propTypes = {
     removeImage: T.func.isRequired,
 };
 
-export default TaskCreatorForm
+export default TaskCreatorEditorForm

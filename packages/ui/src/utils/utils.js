@@ -1,4 +1,4 @@
-export const limitCharacter = (string, maxCharacters) => {
+export const limitCharacter = (string = '', maxCharacters) => {
     let truncatedString = string;
     const tailLength = 3;
     const tail = ' . . .';

@@ -87,6 +87,7 @@ class ViewTaskContext extends React.PureComponent {
         )
     }
 }
+
 const mapStateToProps = (state) => ({
     task: state.allTasks === null ? null : state.allTasks[state.activeTask],
     taskIndex: state.activeTask,

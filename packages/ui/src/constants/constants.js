@@ -11,3 +11,8 @@ export const ROUTES = {
     VIEW_TASK: '/task/view',
     EDIT_TASK: '/task/edit',
 };
+
+export const VIEW_MODE = {
+    EDIT: 'EDIT',
+    VIEW: 'VIEW',
+};
