@@ -1,18 +1,22 @@
 import { Card, Menu } from './Components';
-import { Button, Checkbox, CircularProgress, Fab, Grid, IconButton, Modal, Paper, TextField, Typography } from '@material-ui/core';
+import { AppBar, Box, Button, Checkbox, CircularProgress, CssBaseline, Fab, Grid, IconButton, Modal, Paper, TextField, Toolbar, Typography } from '@material-ui/core';
 import { AddAPhoto as AddAPhotoIcon, Add as AddIcon, Close as CloseIcon, ArrowBack as ArrowBackIcon, MoreVert as MoreVertIcon } from '@material-ui/icons';
 
 export {
     //material ui core
+    AppBar,
+    Box,
     Button,
     Checkbox,
     CircularProgress,
+    CssBaseline,
     Fab,
     Grid,
     IconButton,
     Modal,
     Paper,
     TextField,
+    Toolbar,
     Typography,
 
     //material ui icon
