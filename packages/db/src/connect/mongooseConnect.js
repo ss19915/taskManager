@@ -12,7 +12,9 @@ const mongooseConnect = (dbUri) => {
         console.log('Mongoose default connection is open');
     });
 
-    mongoose.connection.on('error', () => {
+    mongoose.connection.on('error', (error) => {
+        console.log(error);
+
         mongoose.connect(dbUri, {
             useNewUrlParser: true,
             useFindAndModify: false,

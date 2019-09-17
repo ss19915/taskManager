@@ -3,18 +3,16 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
 
-const mode = {
-    PRODUCTION: 'production',
-    DEVELOPMENT: 'development',
-}
-const envFilePath = '../../.env';
-const entryPoint = './src/listener.js'
+const envFilePath = '../../../.env';
+const entryPoint = './src/'
 
 module.exports = (env, args) => ({
     entry: entryPoint,
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'index.js'
+        filename: 'index.js',
+        library: 'library',
+        libraryTarget: 'umd'
     },
     module: {
         rules: [

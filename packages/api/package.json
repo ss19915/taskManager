@@ -4,7 +4,7 @@
   "description": "",
   "main": "cjs",
   "scripts": {
-    "start": "nodemon --exec babel-node -r loadEnv src/api.js --root-mode upward",
+    "start": "nodemon --exec babel-node -r loadEnv src/listener --root-mode upward",
     "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "rm -rfv ./cjs && babel --watch --verbose --relative ./src/ -d ../cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js'",
