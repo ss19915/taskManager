@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu } from '@task-manager/theme';
+import T from 'prop-types';
 
 const TaskCardHeaderMenu = (props) => {
     const {
@@ -7,7 +8,7 @@ const TaskCardHeaderMenu = (props) => {
         onClose,
         editTask,
         deleteTask,
-        isDeleteDisabled
+        isDeleteDisabled,
     } = props;
 
     return (
@@ -22,6 +23,14 @@ const TaskCardHeaderMenu = (props) => {
             <Menu.Item disabled={isDeleteDisabled} onClick={deleteTask}>Delete</Menu.Item>
         </Menu>
     );
+};
+
+TaskCardHeaderMenu.propTypes = {
+    anchorEl: T.object,
+    onClose: T.func.isRequired,
+    editTask: T.func.isRequired,
+    deleteTask: T.func.isRequired,
+    isDeleteDisabled: T.bool,
 };
 
 export default TaskCardHeaderMenu;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, IconButton, MoreVertIcon, Checkbox, Typography } from '@task-manager/theme';
 import utils from '../../utils'
+import T from 'prop-types';
 
 const TaskCard = (props) => {
-
     const {
         name,
         description,
@@ -44,6 +44,16 @@ const TaskCard = (props) => {
             </Card.Actions>
         </Card>
     );
-}
+};
+
+TaskCard.propTypes = {
+    name: T.string.isRequired,
+    description: T.string,
+    showCardHeaderMenu: T.func.isRequired,
+    completed: T.bool,
+    markAsComplete: T.func.isRequired,
+    isCompleteCheckBoxDisabled: T.bool,
+    viewTask: T.func.isRequired,
+};
 
 export default TaskCard;

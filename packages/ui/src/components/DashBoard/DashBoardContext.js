@@ -4,6 +4,7 @@ import DashBoard from './DashBoard';
 import { getAllTasks } from '@task-manager/api';
 import { connect } from 'react-redux';
 import actions from '../../actions';
+import T from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 const DashBoardContext = (props) => {
@@ -31,6 +32,11 @@ const DashBoardContext = (props) => {
         </CardWithDataSource>
     );
 };
+
+DashBoardContext.propTypes = {
+    allTasks: T.array,
+    saveAllTask: T.func.isRequired,
+}
 
 const mapStateToProps = (state) => ({
     allTasks: state.allTasks,

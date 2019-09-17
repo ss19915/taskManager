@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, IconButton, MoreVertIcon, Checkbox, Typography, Fab, ArrowBackIcon } from '@task-manager/theme';
+import T from 'prop-types';
 
 const ViewTask = (props) => {
     const {
@@ -12,7 +13,6 @@ const ViewTask = (props) => {
         goBack,
     } = props;
 
-
     return (
         <Card>
             <Card.Header
@@ -21,7 +21,7 @@ const ViewTask = (props) => {
                     variant: 'h5'
                 }}
                 avatar={
-                    <Fab onClick={goBack}><ArrowBackIcon/></Fab>
+                    <Fab onClick={goBack}><ArrowBackIcon /></Fab>
                 }
                 action={
                     <IconButton onClick={showCardHeaderMenu}>
@@ -29,9 +29,9 @@ const ViewTask = (props) => {
                     </IconButton>
                 }
             />
-                <Card.Content>
-                    {description}
-                </Card.Content>
+            <Card.Content>
+                {description}
+            </Card.Content>
             <Card.Actions>
                 <Checkbox
                     checked={completed}
@@ -45,5 +45,15 @@ const ViewTask = (props) => {
         </Card>
     );
 }
+
+ViewTask.propTypes = {
+    name: T.string.isRequired,
+    description: T.string,
+    showCardHeaderMenu: T.func.isRequired,
+    completed: T.bool,
+    markAsComplete: T.func.isRequired,
+    isCompleteCheckBoxDisabled: T.bool,
+    goBack: T.func.isRequired,
+};
 
 export default ViewTask;

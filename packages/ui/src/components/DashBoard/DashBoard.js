@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, Grid } from '@task-manager/theme';
+import T from 'prop-types';
 import TaskCard from '../TaskCard';
 
 const DashBoard = (props) => {
@@ -18,6 +19,10 @@ const DashBoard = (props) => {
             </Grid>
         </Paper>
     );
+};
+
+DashBoard.propTypes = {
+    allTasks: T.array,
 };
 
 export default DashBoard;

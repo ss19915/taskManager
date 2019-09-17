@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Typography, Fab, Toolbar } from '@task-manager/theme';
+import { AppBar, Typography, Toolbar, Button } from '@task-manager/theme';
+import T from 'prop-types';
 
 const Header = (props) => {
     const { redirectToCreateTask, redirectHome } = props;
@@ -11,14 +12,19 @@ const Header = (props) => {
                 <Typography variant='h6' onClick={redirectHome}>
                     Task Manager
                 </Typography>
-                <Fab variant='extended' onClick={redirectToCreateTask}>
+                <Button onClick={redirectToCreateTask}>
                     Add New Task
-                </Fab>
+                </Button>
             </Toolbar>
         </AppBar>
         <Toolbar/>
         </React.Fragment>
     );
+};
+
+Header.propTypes = {
+    redirectToCreateTask: T.func.isRequired,
+    redirectHome: T.func.isRequired
 };
 
 export default Header;
