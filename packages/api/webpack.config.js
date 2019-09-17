@@ -2,11 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
+
 const mode = {
     PRODUCTION: 'production',
     DEVELOPMENT: 'development',
 }
-
 const envFilePath = '../../.env';
 const entryPoint = './src/api.js'
 
@@ -23,7 +23,7 @@ module.exports = (env, args) => ({
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        rootMode: 'upward', 
+                        rootMode: 'upward',
                     }
                 },
                 exclude: '/node_modules/',
