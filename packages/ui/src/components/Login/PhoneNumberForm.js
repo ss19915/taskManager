@@ -4,6 +4,8 @@ import { sendOTPButtonId, COUNRTY_CODES } from './constants';
 
 const minPhoneNumberLength = 3
 
+const sendOTPButtonRef = React.createRef();
+
 const PhoneNumberForm = (props) => {
     const {
         phoneNumber = '',
@@ -14,6 +16,12 @@ const PhoneNumberForm = (props) => {
         error,
         isSendOTPDisabled,
     } = props;
+
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            sendOTPButtonRef.current.click();
+        }
+    };
 
     const isValidNumber = phoneNumber.length > minPhoneNumberLength;
 
@@ -40,11 +48,19 @@ const PhoneNumberForm = (props) => {
                         <TextField
                             value={phoneNumber}
                             onChange={({ target: { value } }) => onPhoneNumberChange(value)}
+                            onKeyDown={onKeyDown}
                         />
                         {error && <Typography color='error'>{error}</Typography>}
                     </Card.Content>
                     <Card.Actions>
-                        <Button disabled={!isValidNumber || isSendOTPDisabled} id={sendOTPButtonId} onClick={sendOTP}>Send OTP</Button>
+                        <Button
+                            disabled={!isValidNumber || isSendOTPDisabled}
+                            id={sendOTPButtonId}
+                            onClick={sendOTP}
+                            ref={sendOTPButtonRef}
+                        >
+                            Send OTP
+                        </Button>
                     </Card.Actions>
                 </Card>
             </Grid>

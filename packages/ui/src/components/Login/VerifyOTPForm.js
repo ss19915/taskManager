@@ -3,6 +3,8 @@ import { Card, Typography, TextField, Button, Grid } from '@task-manager/theme';
 
 const OTPLength = 6;
 
+const verifyOTPButtonRef = React.createRef();
+
 const VerifyOTPForm = (props) => {
     const {
         OTP = '',
@@ -10,7 +12,14 @@ const VerifyOTPForm = (props) => {
         verifyOTP,
         error,
         isVerifyOTPDisabled,
+        phoneNumber,
     } = props;
+    
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            verifyOTPButtonRef.current.click();
+        }
+    };
 
     const isValidOTP = OTP.length === OTPLength;
 
@@ -23,16 +32,26 @@ const VerifyOTPForm = (props) => {
         >
             <Grid item>
                 <Card>
+                    <Card.Header
+                        title={phoneNumber}
+                    />
                     <Card.Content>
                         <Typography>Enter OTP</Typography>
                         <TextField
                             value={OTP}
                             onChange={({ target: { value } }) => onOTPChange(value)}
+                            onKeyDown={onKeyDown}
                         />
                         {error && <Typography color='error'>{error}</Typography>}
                     </Card.Content>
                     <Card.Actions>
-                        <Button disabled={isVerifyOTPDisabled || !isValidOTP} onClick={verifyOTP}>Send OTP</Button>
+                        <Button
+                            disabled={isVerifyOTPDisabled || !isValidOTP}
+                            onClick={verifyOTP}
+                            ref={verifyOTPButtonRef}
+                        >
+                            Verify OTP
+                        </Button>
                     </Card.Actions>
                 </Card>
             </Grid>

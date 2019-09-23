@@ -59,6 +59,7 @@ const LoginForm = (props) => {
                 {activeStep === 1 &&
                     <VerifyOTPForm
                         OTP={OTP}
+                        phoneNumber={`${countryCode} ${phoneNumber}`}
                         onOTPChange={onOTPChange}
                         verifyOTP={verifyOTP}
                         error={OTPError}
