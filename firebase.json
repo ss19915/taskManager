@@ -4,5 +4,19 @@
       "yarn --cwd \"$RESOURCE_DIR\" build"
     ],
     "source": "packages/firebase/api"
+  },
+  "hosting": {
+    "public": "packages/ui/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
