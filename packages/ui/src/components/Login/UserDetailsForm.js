@@ -1,19 +1,13 @@
 import React from 'react';
 import { Card, Typography, TextField, Button, Grid } from '@task-manager/theme';
 
-const OTPLength = 6;
-
-const VerifyOTPForm = (props) => {
+const UserDetailsForm = (props) => {
     const {
-        OTP = '',
-        onOTPChange,
-        verifyOTP,
+        onUserNameChange,
+        saveUserDetails,
         error,
-        isVerifyOTPDisabled,
+        isUpdateUserDisabled,
     } = props;
-
-    const isValidOTP = OTP.length === OTPLength;
-
     return (
         <Grid
             container
@@ -23,20 +17,22 @@ const VerifyOTPForm = (props) => {
         >
             <Grid item>
                 <Card>
+                    <Card.Header
+                        title='User Details'
+                    />
                     <Card.Content>
-                        <Typography>Enter OTP</Typography>
+                        <Typography>Full Name</Typography>
                         <TextField
-                            value={OTP}
-                            onChange={({ target: { value } }) => onOTPChange(value)}
+                            onChange={({ target: { value } }) => onUserNameChange(value)}
                         />
                         {error && <Typography color='error'>{error}</Typography>}
                     </Card.Content>
                     <Card.Actions>
-                        <Button disabled={isVerifyOTPDisabled || !isValidOTP} onClick={verifyOTP}>Send OTP</Button>
+                        <Button disabled={isUpdateUserDisabled} onClick={saveUserDetails}>Save</Button>
                     </Card.Actions>
                 </Card>
             </Grid>
         </Grid>
     );
 }
-export default VerifyOTPForm;
+export default UserDetailsForm;

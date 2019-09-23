@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        rootMode: 'upward', 
+                        rootMode: 'upward',
                     }
                 },
                 exclude: '/node_modules/',
@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
         ]),
         new webpack.HotModuleReplacementPlugin(),
         new CleanWebpackPlugin(),
-        new DotEnv({path: envFilePath}),
+        new DotEnv({ path: envFilePath }),
     ];
 
     const devServer = {
@@ -51,7 +51,7 @@ module.exports = (env, argv) => {
     let optimization = {};
 
 
-    if(argv.mode === mode.PRODUCTION){
+    if (argv.mode === mode.PRODUCTION) {
 
         const productionOptimization = {
             mangleWasmImports: true,
@@ -72,6 +72,9 @@ module.exports = (env, argv) => {
         module,
         plugins,
         optimization,
-        devServer
+        devServer,
+        resolve: {
+            alias: { 'react-dom': '@hot-loader/react-dom' }
+        }
     });
 }

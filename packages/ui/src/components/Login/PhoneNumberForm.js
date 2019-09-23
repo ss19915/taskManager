@@ -31,9 +31,10 @@ const PhoneNumberForm = (props) => {
                         <Select
                             value={countryCode}
                             onChange={({ target: { value } }) => onCountryCodeChange(value)}
+                            MenuProps={{ keepMounted: true }}
                         >
-                            {COUNRTY_CODES.map(({ name, code, dial_code }) => (
-                                <Menu.Item tooltip={name} key={code} value={dial_code}>{code}</Menu.Item>
+                            {COUNRTY_CODES.map(({ name, code }) => (
+                                <Menu.Item tooltip={name} key={name} value={code}>{name}</Menu.Item>
                             ))}
                         </Select>
                         <TextField

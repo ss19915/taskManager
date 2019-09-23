@@ -4,6 +4,7 @@ import constants from '../../constants';
 import { initializeApp, auth } from 'firebase/app';
 import { sendOTPButtonId } from './constants';
 import 'firebase/auth';
+import _ from 'lodash';
 
 class Login extends React.PureComponent {
     state = {
@@ -11,6 +12,8 @@ class Login extends React.PureComponent {
         phoneNumberError: null,
         activeStep: 0,
         isSendOTPDisabled: false,
+        userName: '',
+        isUpdateUserDisabled: true
     };
 
     componentDidMount() {
@@ -25,8 +28,8 @@ class Login extends React.PureComponent {
     sendOTP = () => {
         const { countryCode, phoneNumber } = this.state;
 
-        this.setState({ isSendOTPDisabled: true });
-        auth().signInWithPhoneNumber(`${countryCode}${phoneNumber}`, this.recaptchaVerifier).then(( confirm ) => {
+        this.setState({ isSendOTPDisabled: true, phoneNumberError: null });
+        auth().signInWithPhoneNumber(`${countryCode}${phoneNumber}`, this.recaptchaVerifier).then((confirm) => {
             this.verifyOTPCode = confirm;
             this.setState({
                 activeStep: 1,
@@ -60,13 +63,25 @@ class Login extends React.PureComponent {
     verifyOTP = () => {
         const { OTP } = this.state;
 
-        this.setState({ isVerifyOTPDisabled: true });
-        this.verifyOTPCode.confirm(OTP).then((user) => {
-            this.setState({
-                activeStep: 2,
-                isVerifyOTPDisabled: false,
-                user: user,
-            });
+        this.setState({ isVerifyOTPDisabled: true, OTPError: null });
+        this.verifyOTPCode.confirm(OTP).then((userDetails) => {
+            const name = userDetails.user.displayName;
+            if (_.isEmpty(name)) {
+                this.setState({
+                    activeStep: 2,
+                    isVerifyOTPDisabled: false,
+                    userDetails,
+                });
+            }
+            else {
+                this.setState({
+                    activeStep: 3,
+                    isVerifyOTPDisabled: false,
+                    userDetails,
+                    userName: name,
+                });
+                this.props.setUser(userDetails);
+            }
         }).catch(({ code }) => {
             let error = code.split('/')[1].replace(/-/g, ' ');
 
@@ -79,33 +94,55 @@ class Login extends React.PureComponent {
 
     onCountryCodeChange = (countryCode) => this.setState({ countryCode });
 
-    render() {
-        const {
-            phoneNumber,
-            countryCode,
-            phoneNumberError,
-            activeStep,
-            isSendOTPDisabled,
-            OTP,
-            OTPError,
-            isVerifyOTPDisabled,
-        } = this.state;
+    onUserNameChange = (userName) => {
+        this.setState((prevState) => {
+            const { isUpdateUserDisabled } = prevState;
+            const newState = { userName };
 
+            if (_.isEmpty(userName) && !isUpdateUserDisabled) {
+                newState.isUpdateUserDisabled = true;
+            }
+            else if (!_.isEmpty(userName) && isUpdateUserDisabled) {
+                newState.isUpdateUserDisabled = false;
+            }
+
+            return newState;
+        });
+    };
+
+    saveUserDetails = () => {
+        const { userName, userDetails } = this.state;
+
+        this.setState({ isUpdateUserDisabled: true });
+        auth().currentUser.updateProfile({
+            displayName: userName,
+        }).then((res) => {
+            this.setState({
+                isUpdateUserDisabled: false,
+                activeStep: 3,
+            });
+            this.props.setUser(userDetails);
+        }).catch(({ code }) => {
+            let error = code.split('/')[1].replace(/-/g, ' ');
+
+            this.setState({
+                isUpdateUserDisabled: false,
+                saveUserError: error
+            });
+        });
+    }
+
+    render() {
         return (
             <LoginForm
-                phoneNumber={phoneNumber}
-                countryCode={countryCode}
+                {...this.state}
                 onPhoneNumberChange={this.onPhoneNumberChange}
                 onCountryCodeChange={this.onCountryCodeChange}
-                phoneNumberError={phoneNumberError}
-                activeStep={activeStep}
-                isSendOTPDisabled={isSendOTPDisabled}
                 sendOTP={this.sendOTP}
-                OTP={OTP}
                 onOTPChange={this.onOTPChange}
                 verifyOTP={this.verifyOTP}
-                OTPError={OTPError}
-                isVerifyOTPDisabled={isVerifyOTPDisabled}
+                onUserNameChange={this.onUserNameChange}
+                saveUserDetails={this.saveUserDetails}
             />
         );
     }
