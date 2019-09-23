@@ -18,5 +18,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "database": {
+    "rules": "packages/firebase/db/database.rules.json"
   }
 }

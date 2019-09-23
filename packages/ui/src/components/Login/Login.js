@@ -1,7 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
-import constants from '../../constants';
-import { initializeApp, auth } from 'firebase/app';
+import { auth } from 'firebase/app';
 import { sendOTPButtonId } from './constants';
 import 'firebase/auth';
 import _ from 'lodash';
@@ -17,7 +16,6 @@ class Login extends React.PureComponent {
     };
 
     componentDidMount() {
-        initializeApp(constants.FIREBASE_CONFIG);
         auth().useDeviceLanguage();
         this.recaptchaVerifier = new auth.RecaptchaVerifier(sendOTPButtonId, {
             size: 'invisible',

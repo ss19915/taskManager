@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "tasks": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid",
+        "$task": {
+          ".validate": "newData.hasChildren(['name'])",
+          "name": {
+            ".validate": "newData.isString()"
+          },
+          "description": {
+            ".validate": "newData.isString()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 import { TaskCreatorEditorForm } from '../TaskCreatorEditorForm';
 import _ from 'lodash';
-import { createTask as createTaskEndpoint } from '@task-manager/api';
 import constants from '../../constants';
 import T from 'prop-types';
-import {TaskLoader} from '../TaskCreatorEditorForm';
+import { TaskLoader } from '../TaskCreatorEditorForm';
+import 'firebase/database';
+import { database } from 'firebase/app';
 
 const { API_STATUS } = constants;
 
@@ -20,8 +21,14 @@ class TaskCreator extends React.PureComponent {
         createStatus: API_STATUS.INITIAL,
     };
 
+    createTask = (user, task) => {
+        const taskPath = `tasks/${user.uid}/`
+
+        return database().ref().child(taskPath).push(task);
+    }
+
     onCreateTask = () => {
-        const { saveTask } = this.props;
+        const { user } = this.props;
         const { taskName, taskDescription } = this.state;
         const payload = { name: taskName };
 
@@ -29,10 +36,9 @@ class TaskCreator extends React.PureComponent {
             payload.description = taskDescription;
         }
         this.setState({ createStatus: API_STATUS.SENT });
-        createTaskEndpoint(payload).then(({ data }) => {
+        this.createTask(user, payload).then(() => {
             this.setState({ createStatus: API_STATUS.RECEIVED });
-            saveTask(data);
-        }).catch((error) => this.setState({ createStatus: API_STATUS.ERROR, error }));
+        }).catch(({code}) => this.setState({ createStatus: API_STATUS.ERROR, error: code }));
     };
 
     retry = () => {

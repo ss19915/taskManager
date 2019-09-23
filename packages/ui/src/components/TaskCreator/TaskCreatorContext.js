@@ -3,24 +3,23 @@ import TaskCreator from './TaskCreator';
 import { withRouter } from 'react-router-dom';
 import constants from '../../constants';
 import { connect } from 'react-redux';
-import actions from '../../actions';
 
 const TaskCreatorContext = (props) => {
-    const { history, saveTask } = props;
+    const { history } = props;
     const redirectHome = () => {
         history.push(constants.ROUTES.DASHBOARD);
     };
 
     return (
         <TaskCreator
-            saveTask={saveTask}
+            {...props}
             redirectHome={redirectHome}
         />
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    saveTask: (task) => dispatch(actions.saveTask(task)),
-})
+const mapStateToProps = (state) => ({
+    user: state.user.user,
+});
 
-export default connect(null, mapDispatchToProps)(withRouter(TaskCreatorContext));
+export default connect(mapStateToProps)(withRouter(TaskCreatorContext));

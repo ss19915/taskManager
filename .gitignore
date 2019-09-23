@@ -6,3 +6,4 @@ cjs
 coverage
 firebase-debug.log
 .firebaserc
+.firebase
