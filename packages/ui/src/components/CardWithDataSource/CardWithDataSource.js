@@ -44,12 +44,12 @@ class CardWithDataSource extends React.PureComponent {
 
         const { payload } = this.state;
 
-        const onSuccess = ({ data }) => this.setState({
+        const onSuccess = ( data ) => this.setState({
             apiResponse: processResponse(data),
             status: Status.LOADED
         });
 
-        const onError = ({ response }) => this.setState({
+        const onError = (response) => this.setState({
             error: response,
             status: Status.ERROR,
         });

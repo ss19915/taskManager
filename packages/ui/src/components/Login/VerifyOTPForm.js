@@ -41,6 +41,7 @@ const VerifyOTPForm = (props) => {
                             value={OTP}
                             onChange={({ target: { value } }) => onOTPChange(value)}
                             onKeyDown={onKeyDown}
+                            autoFocus
                         />
                         {error && <Typography color='error'>{error}</Typography>}
                     </Card.Content>

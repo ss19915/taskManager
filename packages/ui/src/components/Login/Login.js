@@ -21,6 +21,8 @@ class Login extends React.PureComponent {
             size: 'invisible',
             callback: () => { },
         });
+
+        this.recaptchaVerifier.render().then(() => { });
     }
 
     sendOTP = () => {
@@ -36,7 +38,7 @@ class Login extends React.PureComponent {
         }).catch(({ code }) => {
             let error = code.split('/')[1].replace(/-/g, ' ');
 
-            this.recaptchaVerifier.render().then(function (widgetId) {
+            this.recaptchaVerifier.render().then((widgetId) => {
                 grecaptcha.reset(widgetId);
             });
             this.setState({

@@ -9,6 +9,9 @@
           "name": {
             ".validate": "newData.isString()"
           },
+          "completed": {
+            ".validate": "newData.isBoolean()"
+          },
           "description": {
             ".validate": "newData.isString()"
           },

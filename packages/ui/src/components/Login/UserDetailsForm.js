@@ -23,6 +23,7 @@ const UserDetailsForm = (props) => {
                     <Card.Content>
                         <Typography>Full Name</Typography>
                         <TextField
+                            autoFocus
                             onChange={({ target: { value } }) => onUserNameChange(value)}
                         />
                         {error && <Typography color='error'>{error}</Typography>}

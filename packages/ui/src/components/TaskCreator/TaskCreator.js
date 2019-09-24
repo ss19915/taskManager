@@ -11,7 +11,6 @@ const { API_STATUS } = constants;
 
 class TaskCreator extends React.PureComponent {
     static propTypes = {
-        saveTask: T.func.isRequired,
         redirectHome: T.func.isRequired,
     };
 
@@ -19,6 +18,8 @@ class TaskCreator extends React.PureComponent {
         imageFiles: [],
         isCreateDisabled: true,
         createStatus: API_STATUS.INITIAL,
+        taskName: '',
+        taskDescription: '',
     };
 
     createTask = (user, task) => {
@@ -102,7 +103,7 @@ class TaskCreator extends React.PureComponent {
     };
 
     render() {
-        const { imageFiles, isCreateDisabled, createStatus, error } = this.state;
+        const { imageFiles, isCreateDisabled, createStatus, error, taskName, taskDescription } = this.state;
         const { redirectHome } = this.props;
 
         return (
@@ -112,18 +113,20 @@ class TaskCreator extends React.PureComponent {
                     onImageAdd={this.onImageAdd}
                     onNameChange={this.onNameChange}
                     createTask={this.onCreateTask}
-                    imageFiles={imageFiles}
                     removeImage={this.removeImage}
                     isCreateDisabled={isCreateDisabled}
                     goBack={redirectHome}
+                    name={taskName}
+                    imageFiles={imageFiles}
+                    description={taskDescription}
                 />
                 <TaskLoader
-                    loading={createStatus}
                     retry={this.retry}
-                    error={error}
-                    createNewTask={this.createNewTask}
-                    redirectHome={redirectHome}
                     cancelCreateTask={this.cancelCreateTask}
+                    createNewTask={this.createNewTask}
+                    loading={createStatus}
+                    error={error}
+                    redirectHome={redirectHome}
                 />
             </React.Fragment>
         );

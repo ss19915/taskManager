@@ -1,15 +1,26 @@
 import React from 'react';
 import TaskCard from './TaskCard';
 import TaskCardHeaderMenu from './TaskCardHeaderMenu';
-import { deleteTaskById, updateTaskById } from '@task-manager/api';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 import constants from '../../constants';
 import { withRouter } from 'react-router-dom';
+import { database, auth } from 'firebase/app';
 
-class TaskCardContext extends React.Component {
+class TaskCardContext extends React.PureComponent {
     state = {
         anchorEl: null,
+    };
+
+    updateTaskById = (id, payload) => {
+        const path = `tasks/${auth().currentUser.uid}/${id}`;
+        return database().ref(path).update(payload);
+    };
+
+    deleteTaskById = (id) => {
+        const path = `tasks/${auth().currentUser.uid}/${id}`;
+
+        return database().ref(path).remove();
     };
 
     showCardHeaderMenu = ({ currentTarget }) => this.setState({ anchorEl: currentTarget });
@@ -17,16 +28,12 @@ class TaskCardContext extends React.Component {
     onClose = () => this.setState({ anchorEl: null });
 
     deleteTask = () => {
-        const { task, taskDeleted, taskIndex } = this.props;
-        const { _id: id } = task;
+        const { task } = this.props;
+        const { id } = task;
 
         this.onClose();
         this.setState({ isDeleteDisabled: true });
-        deleteTaskById(id).then(() => {
-            taskDeleted(taskIndex);
-        }).catch(() => {
-            this.setState({ isDeleteDisabled: false });
-        });
+        this.deleteTaskById(id).then(()=>{}).catch((e)=>console.log(e));
     };
 
     viewTask = () => {
@@ -45,11 +52,11 @@ class TaskCardContext extends React.Component {
     
     markAsComplete = () => {
         const { task, updateTask, taskIndex } = this.props;
-        const { _id: id, completed } = task;
+        const { id, completed } = task;
         const payload = { completed: !completed };
 
         this.setState({ isCompleteCheckBoxDisabled: true });
-        updateTaskById(id, payload).then(() => {
+        this.updateTaskById(id, payload).then(() => {
             this.setState({ isCompleteCheckBoxDisabled: false });
             updateTask(taskIndex, payload);
         }).catch(() => {
@@ -85,8 +92,6 @@ class TaskCardContext extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    taskDeleted: (taskIndex) => dispatch(actions.deleteTask(taskIndex)),
-    updateTask: (taskIndex, task) => dispatch(actions.updateTask(taskIndex, task)),
     setActiveTask: (activeTask) => dispatch(actions.setActiveTask(activeTask)),
 });
 

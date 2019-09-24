@@ -1,6 +1,6 @@
 import React from 'react';
 import { Status } from './constants';
-import { Paper, Button } from '@task-manager/theme';
+import { Paper, Button, Typography } from '@task-manager/theme';
 import { ErrorMenuLabels } from './constants';
 import T from 'prop-types';
 
@@ -37,8 +37,10 @@ class ErrorMenu extends React.PureComponent {
                 </Button>
 
                 {this.state.showError &&
-                    <Paper css={(theme) => ({ color: theme.warningColor })}>
-                        {`Error: ${JSON.stringify(error)}`}
+                    <Paper>
+                        <Typography color='error'>
+                            {`Error: ${JSON.stringify(error)}`}
+                        </Typography>
                     </Paper>
                 }
             </React.Fragment>

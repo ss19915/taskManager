@@ -60,7 +60,7 @@ const TaskCreatorEditorForm = (props) => {
             <Card.Content>
                 <Typography>Name*</Typography>
                 <TextField
-                    defaultValue={name}
+                    value={name}
                     fullWidth
                     onChange={({ target: { value } }) => onNameChange(value)}
                 />
@@ -69,7 +69,7 @@ const TaskCreatorEditorForm = (props) => {
                     fullWidth
                     onChange={({ target: { value } }) => onDescriptionChange(value)}
                     multiline
-                    defaultValue={description}
+                    value={description}
                 />
                 <MultipleImageViewer />
             </Card.Content>

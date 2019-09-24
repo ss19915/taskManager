@@ -5,12 +5,23 @@ import ViewTask from './ViewTask';
 import constants from '../../constants';
 import ViewTaskHeaderMenu from './ViewTaskHeaderMenu';
 import actions from '../../actions';
-import { deleteTaskById, updateTaskById } from '@task-manager/api';
+import { auth, database } from 'firebase';
 
 class ViewTaskContext extends React.PureComponent {
 
     state = {
         anchorEl: null,
+    };
+
+    updateTaskById = (id, payload) => {
+        const path = `tasks/${auth().currentUser.uid}/${id}`;
+        return database().ref(path).update(payload);
+    };
+
+    deleteTaskById = (id) => {
+        const path = `tasks/${auth().currentUser.uid}/${id}`;
+
+        return database().ref(path).remove();
     };
 
     showCardHeaderMenu = ({ currentTarget }) => this.setState({ anchorEl: currentTarget });
@@ -19,11 +30,11 @@ class ViewTaskContext extends React.PureComponent {
 
     deleteTask = () => {
         const { task, taskDeleted, taskIndex } = this.props;
-        const { _id: id } = task;
+        const { id } = task;
 
         this.onClose();
         this.setState({ isDeleteDisabled: true });
-        deleteTaskById(id).then(() => {
+        this.deleteTaskById(id).then(() => {
             taskDeleted(taskIndex);
             this.redirectHome();
         }).catch(() => {
@@ -40,11 +51,11 @@ class ViewTaskContext extends React.PureComponent {
 
     markAsComplete = () => {
         const { task, updateTask, taskIndex } = this.props;
-        const { _id: id, completed } = task;
+        const { id, completed } = task;
         const payload = { completed: !completed };
 
         this.setState({ isCompleteCheckBoxDisabled: true });
-        updateTaskById(id, payload).then(() => {
+        this.updateTaskById(id, payload).then(() => {
             this.setState({ isCompleteCheckBoxDisabled: false });
             updateTask(taskIndex, payload);
         }).catch(() => {
@@ -54,9 +65,9 @@ class ViewTaskContext extends React.PureComponent {
 
     redirectHome = () => {
         const { history } = this.props;
-        
+
         history.push(constants.ROUTES.DASHBOARD);
-    } 
+    }
 
     render() {
         const { task } = this.props;

@@ -8,6 +8,10 @@ const DashBoard = (props) => {
         allTasks,
     } = props;
 
+    if(allTasks === null){
+        return('There is no task available');
+    }
+
     return (
         <Paper>
             <Grid spacing={1} container>

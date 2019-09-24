@@ -1,29 +1,39 @@
 import React from 'react';
 import CardWithDataSource from '../CardWithDataSource';
 import DashBoard from './DashBoard';
-import { getAllTasks } from '@task-manager/api';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 import T from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { database } from 'firebase/app';
 
 const DashBoardContext = (props) => {
-    const { allTasks, saveAllTask } = props;
-    let skipApiCall = true;
+    const { allTasks, saveAllTask, user } = props;
+    const skipApiCall = allTasks === null ? false : true;
 
-    const processResponse = (allTasks) => {
-        saveAllTask(allTasks);
-        return;
+    const getAllTasks = () => {
+        const promise = new Promise((resolve) => {
+            database().ref(`tasks/${user.uid}/`).on('value', (snapshot) => {
+                if (snapshot.val() === null) {
+                    saveAllTask(null);
+                    resolve('success');
+                    return;
+                }
+
+                const fetchedAllTasks = Object.values(snapshot.val());
+                Object.keys(snapshot.val()).map((id, index) => {
+                    fetchedAllTasks[index].id = id;
+                });
+                saveAllTask(fetchedAllTasks);
+                resolve('success');
+            });
+        });
+        return (promise);
     };
 
-    if(allTasks === null){
-        skipApiCall = false;
-    }
-    
     return (
         <CardWithDataSource
             apiCallMethod={getAllTasks}
-            processResponse={processResponse}
             skip={skipApiCall}
         >
             <DashBoard
@@ -40,6 +50,7 @@ DashBoardContext.propTypes = {
 
 const mapStateToProps = (state) => ({
     allTasks: state.allTasks,
+    user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
