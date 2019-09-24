@@ -16,7 +16,7 @@ const HomeContext = (props) => {
     const { ROUTES: { SIGN_IN } } = constants;
 
     if (_.isEmpty(user) && location.pathname !== SIGN_IN) {
-        history.push(SIGN_IN)
+        history.push(SIGN_IN);
     }
     const Loader = () => (
         <Box mt='40vh'>

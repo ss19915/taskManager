@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 import actions from '../../actions';
 import T from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { database } from 'firebase/app';
+import { database, auth } from 'firebase/app';
 
 const DashBoardContext = (props) => {
-    const { allTasks, saveAllTask, user } = props;
+    const { allTasks, saveAllTask } = props;
     const skipApiCall = allTasks === null ? false : true;
-
     const getAllTasks = () => {
         const promise = new Promise((resolve) => {
+            const user = auth().currentUser;
+
             database().ref(`tasks/${user.uid}/`).on('value', (snapshot) => {
                 if (snapshot.val() === null) {
                     saveAllTask(null);
@@ -50,7 +51,6 @@ DashBoardContext.propTypes = {
 
 const mapStateToProps = (state) => ({
     allTasks: state.allTasks,
-    user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

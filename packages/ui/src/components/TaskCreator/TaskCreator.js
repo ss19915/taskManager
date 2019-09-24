@@ -5,7 +5,7 @@ import constants from '../../constants';
 import T from 'prop-types';
 import { TaskLoader } from '../TaskCreatorEditorForm';
 import 'firebase/database';
-import { database } from 'firebase/app';
+import { database, auth } from 'firebase/app';
 
 const { API_STATUS } = constants;
 
@@ -22,14 +22,14 @@ class TaskCreator extends React.PureComponent {
         taskDescription: '',
     };
 
-    createTask = (user, task) => {
+    createTask = (task) => {
+        const user = auth().currentUser;
         const taskPath = `tasks/${user.uid}/`
 
         return database().ref().child(taskPath).push(task);
     }
 
     onCreateTask = () => {
-        const { user } = this.props;
         const { taskName, taskDescription } = this.state;
         const payload = { name: taskName };
 
@@ -37,9 +37,9 @@ class TaskCreator extends React.PureComponent {
             payload.description = taskDescription;
         }
         this.setState({ createStatus: API_STATUS.SENT });
-        this.createTask(user, payload).then(() => {
+        this.createTask(payload).then(() => {
             this.setState({ createStatus: API_STATUS.RECEIVED });
-        }).catch(({code}) => this.setState({ createStatus: API_STATUS.ERROR, error: code }));
+        }).catch(({ code }) => this.setState({ createStatus: API_STATUS.ERROR, error: code }));
     };
 
     retry = () => {
@@ -49,8 +49,8 @@ class TaskCreator extends React.PureComponent {
 
     createNewTask = () => this.setState({
         createStatus: API_STATUS.INITIAL,
-        taskName: null,
-        taskDescription: null,
+        taskName: '',
+        taskDescription: '',
         error: null,
     });
 

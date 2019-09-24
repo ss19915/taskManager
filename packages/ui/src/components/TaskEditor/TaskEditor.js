@@ -1,16 +1,14 @@
 import React from 'react';
 import { TaskCreatorEditorForm } from '../TaskCreatorEditorForm';
 import _ from 'lodash';
-import { updateTaskById } from '@task-manager/api';
 import constants from '../../constants';
 import T from 'prop-types';
 import { TaskLoader } from '../TaskCreatorEditorForm';
-
+import { auth, database } from 'firebase/app';
 const { API_STATUS, VIEW_MODE, ROUTES } = constants;
 
 class TaskEditor extends React.PureComponent {
     static propTypes = {
-        updateTask: T.func.isRequired,
         redirectHome: T.func.isRequired,
     };
 
@@ -20,21 +18,26 @@ class TaskEditor extends React.PureComponent {
 
         this.state = {
             taskName: task.name,
-            taskDescription: task.description,
+            taskDescription: task.description || '',
             imageFiles: [],
             isCreateDisabled: true,
             createStatus: API_STATUS.INITIAL,
         };
     }
+    
+    updateTaskById = (id, payload) => {
+        const path = `tasks/${auth().currentUser.uid}/${id}`;
+
+        return database().ref(path).update(payload);
+    };
 
     onUpdateTask = () => {
-        const { updateTask, history, task, taskIndex } = this.props;
+        const { history, task } = this.props;
         const { taskName, taskDescription } = this.state;
         const payload = { name: taskName, description: taskDescription };
 
         this.setState({ createStatus: API_STATUS.SENT });
-        updateTaskById(task._id, payload).then(() => {
-            updateTask(taskIndex, payload);
+        this.updateTaskById(task.id, payload).then(() => {
             history.push(ROUTES.VIEW_TASK);
         }).catch((error) => this.setState({ createStatus: API_STATUS.ERROR, error }));
     };
@@ -98,13 +101,14 @@ class TaskEditor extends React.PureComponent {
     };
 
     render() {
-        const { imageFiles, isCreateDisabled, createStatus, error } = this.state;
-        const { redirectHome, task } = this.props;
+        const { imageFiles, isCreateDisabled, createStatus, error, taskName, taskDescription } = this.state;
+        const { redirectHome } = this.props;
 
         return (
             <React.Fragment>
                 <TaskCreatorEditorForm
-                    {...task}
+                    name={taskName}
+                    description={taskDescription}
                     mode={VIEW_MODE.EDIT}
                     onDescriptionChange={this.onDescriptionChange}
                     onImageAdd={this.onImageAdd}
