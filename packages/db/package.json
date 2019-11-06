@@ -9,6 +9,6 @@
     "watchWin": "babel --watch --verbose ./src/ -d ./cjs --ignore './src/**/*.test.js' --ignore './src/*.test.js' --root-mode upward"
   },
   "dependencies": {
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.5"
   }
 }
